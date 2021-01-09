@@ -1,0 +1,8 @@
+# virtual Env
+venv/
+
+#windows Stuff
+.idea/
+
+#pycharm Stuff
+__pycache__/

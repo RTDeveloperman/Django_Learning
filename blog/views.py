@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404
 from    django.http import HttpResponse,JsonResponse
-from .models import article
+from .models import article,Category
             #def home(request):
             #    return HttpResponse("Hello world!")
 
@@ -13,13 +13,14 @@ from .models import article
 #    return render(request, "home.html",context)
 def home(request):
     context={
-       "article":article.objects.all().filter(status="p").order_by('-publish_time')# - nozoli
+       "article":article.objects.all().filter(status="p"),# - nozoli
     }
     return render(request, "index.html",context)
 
 def article_detais(request,slug):
     context={
-        'article':get_object_or_404(article,slug=slug,status="p")
+        'article':get_object_or_404(article,slug=slug,status="p"),
+
     }
     return render(request,'post.html',context)
 

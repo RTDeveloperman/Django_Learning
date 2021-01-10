@@ -31,13 +31,18 @@
                   <p class="post-meta">نویسنده
                       <a href="#">طهماسبی</a>
                       {{ arttc.jpublish_time }}</p>
+                  <div>
+                      {% for cat in arttc.category.all %}
+                        <a href="#">#{{ cat.title }}</a>
+                      {% endfor %}
+                  </div>
               </div>
               <hr>
           {% endfor %}
 
         <!-- Pager -->
-        <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+        <div class="clearfix pager-botton" >
+          <a class="btn btn-primary float-right" href="#"> پست های قدیم&larr;</a>
         </div>
       </div>
     </div>

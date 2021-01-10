@@ -6,3 +6,6 @@ venv/
 
 #pycharm Stuff
 __pycache__/
+
+# django migrations
+blog/migrations/

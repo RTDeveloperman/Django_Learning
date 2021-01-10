@@ -5,4 +5,5 @@ urlpatterns = [
     path('', home, name="home"),
     path('api', api, name="api"),
     path('article/<slug:slug>', article_detais, name="article_detais_url"),
+    #path('category/<slug:slug>', article_detais, name="category_list_url"),
 ]

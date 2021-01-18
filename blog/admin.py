@@ -24,7 +24,7 @@ class ArticleAdmin(admin.ModelAdmin):
     ordering = ['status']#  . be manaye nozoli
 
     def category_to_string(self,obj):
-        return ", ".join([category.title for category in obj.category.all()])
+        return ", ".join([category.title for category in obj.category_published()])
     category_to_string.short_description="دسته بندی"
 admin.site.register(article,ArticleAdmin)
 

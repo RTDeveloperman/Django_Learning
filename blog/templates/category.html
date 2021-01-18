@@ -18,7 +18,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-          {% for arttc in article %}
+          {% for arttc in category.articles_rela.published_article %}
               <div class="post-preview">
                   <a href="{% url "blog:article_detais_url" arttc.slug %}">
                       <h2 class="post-title">

@@ -3,6 +3,10 @@ from django.utils import timezone
 from Extentions.utils import jalali_converter
 from django.template.defaultfilters import truncatewords  # or truncatewords
 
+#my Managers
+class ArticleManager(models.Manager):
+    def published_article(self):
+        return self.filter(status='p')
 
 class Category(models.Model):
     title = models.CharField(max_length=120, null=False, blank=False, verbose_name="عنوان دسته بندی")
@@ -24,7 +28,7 @@ class article(models.Model):
     }
     title=models.CharField(max_length=120,null=False, blank= False,verbose_name="عنوان مقاله")
     slug=models.SlugField(max_length=120,unique=True,null=False, blank= False,verbose_name="آدرس مقاله")
-    category=models.ManyToManyField(Category,verbose_name="دسته بندی")
+    category=models.ManyToManyField(Category,verbose_name="دسته بندی",related_name='articles_rela')
     description=models.TextField(verbose_name="متن مقاله")
     thumbnail=models.ImageField(upload_to="images",verbose_name="تصویر مقاله")
     publish_time=models.DateTimeField(default=timezone.now,verbose_name="تاریخ انتشار")
@@ -40,6 +44,10 @@ class article(models.Model):
         return self.title
     def jpublish_time(self):
         return jalali_converter(self.publish_time)
+    def category_published(self):
+        return self.category.filter(status=True)
+
     def short_description(self):
         return truncatewords(self.description,10)
     jpublish_time.short_description="زمان انتشار"
+    objects=ArticleManager()

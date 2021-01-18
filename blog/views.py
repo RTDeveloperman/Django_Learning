@@ -13,17 +13,22 @@ from .models import article,Category
 #    return render(request, "home.html",context)
 def home(request):
     context={
-       "article":article.objects.all().filter(status="p"),# - nozoli
+        "article": article.objects.published_article(), #"article":article.objects.all().filter(status="p"),# - nozoli
     }
     return render(request, "index.html",context)
 
 def article_detais(request,slug):
     context={
-        'article':get_object_or_404(article,slug=slug,status="p"),
+        'article': get_object_or_404(article.objects.published_article(), slug=slug), # 'article':get_object_or_404(article,slug=slug,status="p"),
 
     }
     return render(request,'post.html',context)
 
+def category_list(request,slug):
+    context={
+        "category":get_object_or_404(Category,slug=slug,status=True),
+    }
+    return  render(request,'category.html',context)
 
 def api(request):
     data={

@@ -46,8 +46,12 @@ class article(models.Model):
         return jalali_converter(self.publish_time)
     def category_published(self):
         return self.category.filter(status=True)
-
     def short_description(self):
         return truncatewords(self.description,10)
+    def article_category(self):
+        cate=[]
+        for category in self.category.all():
+            cate.append(category.title)
+        return ",".join(cate)
     jpublish_time.short_description="زمان انتشار"
     objects=ArticleManager()

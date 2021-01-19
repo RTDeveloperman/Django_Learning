@@ -42,7 +42,13 @@
 
         <!-- Pager -->
         <div class="clearfix pager-botton" >
-          <a class="btn btn-primary float-right" href="#"> پست های قدیم&larr;</a>
+            {% if article.has_previous  %}
+                <a class="btn btn-primary float-right  ml-3" href="{% url 'blog:home'  article.previous_page_number%}"> پست های جدید&rarr;</a>
+            {% endif %}
+
+            {% if article.has_next %}
+                <a class="btn btn-primary float-right" href="{% url 'blog:home' article.next_page_number %}"> پست های قدیم&larr;</a>{% comment %}<a class="btn btn-primary float-right" href="{% url 'blog:home' %}?page={{ article.next_page_number  }}"> پست های قدیم&larr;</a>{% endcomment %}
+            {% endif %}
         </div>
       </div>
     </div>

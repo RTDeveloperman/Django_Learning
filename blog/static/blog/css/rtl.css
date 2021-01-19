@@ -7,6 +7,7 @@
        url('Sahel.ttf') format('truetype');
   font-weight: normal;
 }
+
 body{
     direction: rtl;
     text-align: right;
@@ -22,4 +23,13 @@ body{
 }
 .pager-botton {
     float: left;
+}
+header.masthead .site-heading h1 {
+    font-size: 40px;
+}
+.post-title {
+    font-size: 32px !important;
+}
+.post-subtitle {
+    font-size: 19px;
 }

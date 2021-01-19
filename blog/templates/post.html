@@ -9,7 +9,12 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
             <h1>{{ article.title }}</h1>
-            <span class="subheading">{{ article.category }}</span>
+              <time>{{ article.jpublish_time }}</time>
+               <div>
+                      {% for cat in article.category_published.all %}
+                         <a class="btn-link" href="{% url "blog:category_list_url" cat.slug %}">#{{ cat.title }}</a> {% comment %}<span >#{{ cat.title }}</span>{% endcomment %}
+                      {% endfor %}
+                  </div>
           </div>
         </div>
       </div>
@@ -17,9 +22,9 @@
   </header>
 <!-- Post Content -->
   <article>
-    <div class="container">
+    <div class="container ">
       <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="col-lg-8 col-md-10 mx-auto text-justify">
          {{ article.description|linebreaks }}
         </div>
       </div>

@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render,get_object_or_404
 from    django.http import HttpResponse,JsonResponse
 from .models import article,Category
@@ -11,9 +12,13 @@ from .models import article,Category
 #        "job":"developer",
 #    }
 #    return render(request, "home.html",context)
-def home(request):
+def home(request,page=1):
+    articles_list=article.objects.published_article()
+    paginator=Paginator(articles_list,3)
+    #page=request.GET.get('page')
+    articles=paginator.get_page(page)
     context={
-        "article": article.objects.published_article(), #"article":article.objects.all().filter(status="p"),# - nozoli
+        "article": articles, #"article":article.objects.all().filter(status="p"),# - nozoli
     }
     return render(request, "index.html",context)
 

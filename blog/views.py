@@ -29,9 +29,15 @@ def article_detais(request,slug):
     }
     return render(request,'post.html',context)
 
-def category_list(request,slug):
+def category_list(request,slug,page=1):
+    category=get_object_or_404(Category,slug=slug,status=True)
+    articles_list = category.articles_rela.published_article()
+    paginator = Paginator(articles_list, 3)
+    articles = paginator.get_page(page)
+
     context={
-        "category":get_object_or_404(Category,slug=slug,status=True),
+        "category":category,
+        "articles":articles,
     }
     return  render(request,'category.html',context)
 

@@ -35,6 +35,7 @@ class CategoryAdmin(admin.ModelAdmin):
         'title',
         'slug',
         'status',
+        'parent',
     )
     search_fields = (
         'title',

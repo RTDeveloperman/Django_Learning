@@ -2,7 +2,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render,get_object_or_404
 from    django.http import HttpResponse,JsonResponse
 from .models import article,Category
-from django.views.generic import ListView,TemplateView
+from django.views.generic import ListView,TemplateView,DetailView
             #def home(request):
             #    return HttpResponse("Hello world!")
 
@@ -34,6 +34,12 @@ def article_detais(request,slug):
 
     }
     return render(request,'post.html',context)
+class ArticleDetails(DetailView):
+    template_name = "post.html"
+    context_object_name="article"
+    def get_object(self, queryset=None):
+        slug=self.kwargs.get('slug')
+        return get_object_or_404(article.objects.published_article(), slug=slug)
 
 def category_list(request,slug,page=1):
     category=get_object_or_404(Category,slug=slug,status=True)

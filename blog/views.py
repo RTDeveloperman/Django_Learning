@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render,get_object_or_404
 from    django.http import HttpResponse,JsonResponse
 from .models import article,Category
+from django.views.generic import ListView,TemplateView
             #def home(request):
             #    return HttpResponse("Hello world!")
 
@@ -12,16 +13,21 @@ from .models import article,Category
 #        "job":"developer",
 #    }
 #    return render(request, "home.html",context)
-def home(request,page=1):
-    articles_list=article.objects.published_article()
-    paginator=Paginator(articles_list,3)
-    #page=request.GET.get('page')
-    articles=paginator.get_page(page)
-    context={
-        "article": articles, #"article":article.objects.all().filter(status="p"),# - nozoli
-    }
-    return render(request, "index.html",context)
-
+#def home(request,page=1):
+#    articles_list=article.objects.published_article()
+#    paginator=Paginator(articles_list,3)
+#    #page=request.GET.get('page')
+#    articles=paginator.get_page(page)
+#    context={
+#        "article": articles, #"article":article.objects.all().filter(status="p"),# - nozoli
+#    }
+#    return render(request, "index.html",context)
+class ArticleList(ListView):
+    #model = article
+    template_name = "index.html"#dar sorat adam estefade bayad name index.html ra be article_list.html taghir dahim
+    context_object_name = "article"#dar sorat adam estefade dar template bayad benevisim===>object_list
+    queryset = article.objects.published_article()
+    paginate_by = 6
 def article_detais(request,slug):
     context={
         'article': get_object_or_404(article.objects.published_article(), slug=slug), # 'article':get_object_or_404(article,slug=slug,status="p"),

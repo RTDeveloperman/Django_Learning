@@ -52,7 +52,18 @@ def category_list(request,slug,page=1):
         "articles":articles,
     }
     return  render(request,'category.html',context)
-
+class CategoryList(ListView):
+    template_name = "category.html"
+    paginate_by = 3
+    def get_queryset(self):
+        global category
+        slug=self.kwargs.get("slug")
+        category=get_object_or_404(Category.objects.active_category(), slug=slug, )
+        return category.articles_rela.published_article()
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context["category"]=category
+        return context
 def api(request):
     data={
         "1":{

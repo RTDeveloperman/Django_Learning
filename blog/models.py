@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.html import format_html
 from Extentions.utils import jalali_converter
 from django.template.defaultfilters import truncatewords  # or truncatewords
 
@@ -46,6 +47,8 @@ class article(models.Model):
 
     def __str__(self):
         return self.title
+    def thumbnail_tag(self):
+        return format_html("<img width='100' height='85' style='border-radius : 5px' src='{}'>".format(self.thumbnail.url))
     def jpublish_time(self):
         return jalali_converter(self.publish_time)
     def category_published(self):
@@ -58,4 +61,5 @@ class article(models.Model):
             cate.append(category.title)
         return ",".join(cate)
     jpublish_time.short_description="زمان انتشار"
+    thumbnail_tag.short_description='عکس بند انگشتی'
     objects=ArticleManager()

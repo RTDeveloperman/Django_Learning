@@ -1,7 +1,8 @@
 from django.contrib import admin
 from .models import *
 
-
+#Admin Header Change
+admin.site.site_header="مدیریت وبلاگ جنگویی من"
 #My Actions
 def make_published(modeladmin, request, queryset):
     published=queryset.update(status='p')
@@ -34,6 +35,7 @@ class ArticleAdmin(admin.ModelAdmin):
         'status',
         'short_description',
         'category_to_string',
+        'thumbnail_tag',
 
     )
     search_fields = (

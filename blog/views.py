@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render,get_object_or_404
 from    django.http import HttpResponse,JsonResponse
 from .models import article,Category
+from django.contrib.auth.models import User
 from django.views.generic import ListView,TemplateView,DetailView
             #def home(request):
             #    return HttpResponse("Hello world!")
@@ -63,6 +64,19 @@ class CategoryList(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context=super().get_context_data(**kwargs)
         context["category"]=category
+        return context
+
+class AuthorList(ListView):
+    template_name = "author_list.html"
+    paginate_by = 3
+    def get_queryset(self):
+        global author_category
+        username=self.kwargs.get("username")
+        author_category=get_object_or_404(User, username=username, )
+        return author_category.article_author_rel.published_article()
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context["author_category"]=author_category
         return context
 def api(request):
     data={

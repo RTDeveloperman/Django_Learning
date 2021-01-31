@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 from django.utils.html import format_html
 from Extentions.utils import jalali_converter
 from django.template.defaultfilters import truncatewords  # or truncatewords
@@ -31,6 +32,7 @@ class article(models.Model):
         ('d','Draft'),
         ('p','Publish'),
     }
+    author=models.ForeignKey(User,null=True,on_delete=models.SET_NULL,verbose_name="نویسنده",related_name="article_author_rel")
     title=models.CharField(max_length=120,null=False, blank= False,verbose_name="عنوان مقاله")
     slug=models.SlugField(max_length=120,unique=True,null=False, blank= False,verbose_name="آدرس مقاله")
     category=models.ManyToManyField(Category,verbose_name="دسته بندی",related_name='articles_rela')
@@ -51,8 +53,8 @@ class article(models.Model):
         return format_html("<img width='100' height='85' style='border-radius : 5px' src='{}'>".format(self.thumbnail.url))
     def jpublish_time(self):
         return jalali_converter(self.publish_time)
-   #def category_published(self):
-   #    return self.category.filter(status=True)
+   # def category_published(self):
+   #     return self.category.filter(status=True)
     def short_description(self):
         return truncatewords(self.description,10)
     def article_category(self):

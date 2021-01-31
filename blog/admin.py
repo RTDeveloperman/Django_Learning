@@ -31,6 +31,7 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = (
         'title',
         'slug',
+        'author',
         'jpublish_time',
         'status',
         'short_description',
@@ -53,7 +54,7 @@ class ArticleAdmin(admin.ModelAdmin):
     actions = [make_published,make_darft]
 
     def category_to_string(self,obj):
-        return ", ".join([category.title for category in obj.active_category()])
+        return ", ".join([category.title for category in obj.category.active_category()])
     category_to_string.short_description="دسته بندی"
 admin.site.register(article,ArticleAdmin)
 

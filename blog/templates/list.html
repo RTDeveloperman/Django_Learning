@@ -18,7 +18,8 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-          {% for arttc in article %}
+      {% block category_title %}{% endblock %}
+          {% for arttc in object_list %}
               <div class="post-preview">
                   <a href="{% url "blog:article_detais_url" arttc.slug %}">
                       <h2 class="post-title">
@@ -32,26 +33,26 @@
                       <a href="#">طهماسبی</a>
                       {{ arttc.jpublish_time }}</p>
                   <div>
-                      {% for cat in arttc.category_published.all %}
+                      {% for cat in arttc.category.active_category %}
                         <a href="{% url "blog:category_list_url" cat.slug %}">#{{ cat.title }}</a>
                       {% endfor %}
                   </div>
               </div>
               <hr>
           {% endfor %}
-
-        <!-- Pager -->
+   <!-- Pager -->
        {% if is_paginated %}
            <div class="clearfix pager-botton" >
             {% if page_obj.has_previous  %} {% comment %} {% if article.has_previous  %}#chon az class base view estefade kardim in ravesh sahih nemibashad {% endcomment %}
-                <a class="btn btn-primary float-right  ml-3" href="{% url 'blog:home'  page_obj.previous_page_number%}"> پست های جدید&rarr;</a>
+                <a class="btn btn-primary float-right  ml-3" href="{% block previous_page_url %}{% endblock %}"> پست های جدید&rarr;</a>
             {% endif %}
 
             {% if page_obj.has_next %}
-                <a class="btn btn-primary float-right" href="{% url 'blog:home' page_obj.next_page_number %}"> پست های قدیم&larr;</a>{% comment %}<a class="btn btn-primary float-right" href="{% url 'blog:home' %}?page={{ article.next_page_number  }}"> پست های قدیم&larr;</a>{% endcomment %}
+                <a class="btn btn-primary float-right" href="{% block next_page_url %}{% endblock %}"> پست های قدیم&larr;</a>{% comment %}<a class="btn btn-primary float-right" href="{% url 'blog:home' %}?page={{ article.next_page_number  }}"> پست های قدیم&larr;</a>{% endcomment %}
             {% endif %}
            </div>
       {% endif %}
+
       </div>
     </div>
   </div>

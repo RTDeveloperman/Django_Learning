@@ -24,7 +24,7 @@ from django.views.generic import ListView,TemplateView,DetailView
 #    return render(request, "index.html",context)
 class ArticleList(ListView):
     #model = article
-    template_name = "index.html"#dar sorat adam estefade bayad name index.html ra be article_list.html taghir dahim
+    template_name = "article_list.html"#dar sorat adam estefade bayad name index.html ra be article_list.html taghir dahim
     context_object_name = "article"#dar sorat adam estefade dar template bayad benevisim===>object_list
     queryset = article.objects.published_article()
     paginate_by = 6
@@ -53,7 +53,7 @@ def category_list(request,slug,page=1):
     }
     return  render(request,'category.html',context)
 class CategoryList(ListView):
-    template_name = "category.html"
+    template_name = "category_list.html"
     paginate_by = 3
     def get_queryset(self):
         global category

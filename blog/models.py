@@ -51,8 +51,8 @@ class article(models.Model):
         return format_html("<img width='100' height='85' style='border-radius : 5px' src='{}'>".format(self.thumbnail.url))
     def jpublish_time(self):
         return jalali_converter(self.publish_time)
-    def category_published(self):
-        return self.category.filter(status=True)
+   #def category_published(self):
+   #    return self.category.filter(status=True)
     def short_description(self):
         return truncatewords(self.description,10)
     def article_category(self):

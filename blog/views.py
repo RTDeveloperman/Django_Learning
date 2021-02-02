@@ -34,9 +34,9 @@ def article_detais(request,slug):
         'article': get_object_or_404(article.objects.published_article(), slug=slug), # 'article':get_object_or_404(article,slug=slug,status="p"),
 
     }
-    return render(request,'post.html',context)
+    return render(request,'blog/post.html',context)
 class ArticleDetails(DetailView):
-    template_name = "post.html"
+    template_name = "blog/post.html"
     context_object_name="article"
     def get_object(self, queryset=None):
         slug=self.kwargs.get('slug')
@@ -52,9 +52,9 @@ def category_list(request,slug,page=1):
         "category":category,
         "articles":articles,
     }
-    return  render(request,'category.html',context)
+    return  render(request,'blog/category.html',context)
 class CategoryList(ListView):
-    template_name = "category_list.html"
+    template_name = "blog/category_list.html"
     paginate_by = 3
     def get_queryset(self):
         global category
@@ -67,7 +67,7 @@ class CategoryList(ListView):
         return context
 
 class AuthorList(ListView):
-    template_name = "author_list.html"
+    template_name = "blog/author_list.html"
     paginate_by = 3
     def get_queryset(self):
         global author_category
